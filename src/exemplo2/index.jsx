@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
 
 export default function App() {
-  
-  const [buscar,setBuscar] = useState([]);
+  const [fotos, setFotos] = useState([]);
 
-  useEffect(() => { 
+  useEffect(() => {
     const buscarUsuario = async () => {
-        const resposta = await fetch('https://fakestoreapi.com/products');
-        const dados = await resposta.json();
-        setBuscar(dados);
-    }
-  buscarUsuario();
-  }, []);//complete o código);
+      const resposta = await fetch('https://jsonplaceholder.typicode.com/photos');
+      const dados = await resposta.json();
+      setFotos(dados);
+    };
+
+    buscarUsuario();
+  }, []);
 
   return (
     <>
-      <h1>Usuario</h1>
+      <h1>Galeria de Fotos</h1>
       <ul>
-        {buscar.map(usuario => (
-          <li key={usuario.userId}>
-          <h2>{usuario.id}</h2>
-          <p>{usuario.title}</p>
-          <p>{usuario.completed}</p>
-</li>
+        {fotos.map(foto => (
+          <li key={foto.id}>
+            <h2>{foto.title}</h2>
+            <img src={foto.thumbnailUrl} 
+            alt={foto.title} 
+            width={100} />
+          </li>
         ))}
       </ul>
     </>

@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
 
 export default function App() {
-  
-  const [buscar,setBuscar] = useState([]);
+
+  const [dadosUsuario,setDadosUsuario] = useState([]);
 
   useEffect(() => { 
-    const buscarUsuario = async () => {
-        const resposta = await fetch('https://fakestoreapi.com/products');
+
+    const BuscarDados = async () => {
+        const resposta = await fetch('https://randomuser.me/api');
         const dados = await resposta.json();
-        setBuscar(dados);
+        setDadosUsuario(dados);
     }
-  buscarUsuario();
-  }, []);//complete o código);
+    BuscarDados();
+  }, []);
 
   return (
     <>
-      <h1>Usuario</h1>
+      <h1>Usuário</h1>
       <ul>
-        {buscar.map(usuario => (
-          <li key={usuario.userId}>
-          <h2>{usuario.id}</h2>
-          <p>{usuario.title}</p>
-          <p>{usuario.completed}</p>
-</li>
+      {dadosUsuario.map(dados => (
+          <li key={dados.id}>
+            <h2>{dados.title}</h2>
+            <p>{dados.description}</p>
+          </li>
         ))}
       </ul>
     </>
